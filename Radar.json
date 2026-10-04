@@ -1,0 +1,755 @@
+{
+  "system": "INSTAGRAM PROVEN REUSABLE TREND RADAR v4.9 PRODUCTION",
+  "mission": "Find recently proven Instagram Reel trends from the last 24-48h that already demonstrate meaningful audience traction, independent creator replication, native adoption and continuing activity. Extract the reusable mechanism and convert it into an original, practical opportunity for the target reusable niches. Prioritize trends that are already worth joining now rather than tiny early signals.",
+
+  "platform": "Instagram Reels only",
+
+  "runtime": {
+    "REGION": "global",
+    "LOOKBACK": "24-48h",
+
+    "TARGET_NICHES": [
+      "AI_CONTENT",
+      "TEMPLATE_EDITING",
+      "TRENDING_AUDIO",
+      "MEME_AUDIO",
+      "AUDIO_SYNC",
+      "BEAT_SYNC",
+      "PHOTO_DUMP",
+      "3_PHOTO_ZOOM",
+      "COLLAGE_LOOP",
+      "POLAROID_FRAME",
+      "FILM_ROLL",
+      "SELFIE_POSES",
+      "PHOTO_STORY",
+      "PHOTO_RESTYLE",
+      "BEFORE_AFTER_SLIDER",
+      "BLUR_TO_CLEAR",
+      "VISUAL_TRANSITIONS",
+      "SEAMLESS_LOOP"
+    ],
+
+    "IGNORE_AS_TARGET_NICHE": [
+      "vlog",
+      "daily_life",
+      "fitness",
+      "gym",
+      "cooking",
+      "food",
+      "singing",
+      "dance",
+      "beauty",
+      "makeup",
+      "fashion",
+      "travel",
+      "generic_lifestyle",
+      "generic_comedy",
+      "celebrity",
+      "sports",
+      "politics",
+      "news",
+      "NSFW"
+    ],
+
+    "REFERENCE_EXAMPLES": []
+  },
+
+  "agent_orchestration": {
+    "mode": "ONE_JSON_TWO_PHASE",
+    "agent_count": 7,
+    "architecture": "6 discovery agents run in parallel, followed by 1 validation-and-finalization agent.",
+    "manual_agent_selection_required": false,
+    "manual_second_json_required": false,
+
+    "controller_rules": {
+      "phase_1_discovery_agents_parallel": true,
+      "phase_2_starts_after_phase_1": true,
+      "agent_7_is_final_authority": true,
+      "do_not_spawn_additional_agents": true,
+      "do_not_rank_final_trends": true,
+      "deduplicate_before_final_output": true,
+      "agent_1_to_6_are_discovery_only": true,
+      "agent_1_to_6_must_not_declare_final_actionable_status": true,
+      "agent_7_may_perform_targeted_candidate_verification": true,
+      "agent_7_may_not_replace_global_discovery_with_broad_second_scan": true
+    },
+
+    "phase_1_discovery": {
+      "role": "Broad candidate discovery and evidence collection.",
+      "agents": [
+        {
+          "agent_id": "AGENT_1",
+          "focus": [
+            "AI_CONTENT",
+            "PHOTO_RESTYLE",
+            "VISUAL_TRANSITIONS"
+          ],
+          "scope": "Find recent reusable AI transformations, AI photo edits, AI compositing, transformation transitions and visually reusable editing mechanisms.",
+          "discovery_rule": "Search globally on Instagram Reels. Source subject may belong to any category if the mechanism transfers."
+        },
+        {
+          "agent_id": "AGENT_2",
+          "focus": [
+            "TEMPLATE_EDITING",
+            "TRENDING_AUDIO",
+            "MEME_AUDIO",
+            "AUDIO_SYNC",
+            "BEAT_SYNC"
+          ],
+          "scope": "Find recently proven reusable audio, meme-audio, template, beat-sync, audio-sync and repeatable edit structures.",
+          "discovery_rule": "Do not treat raw audio-use counts as sufficient. Find recent Reel evidence plus replication/native adoption."
+        },
+        {
+          "agent_id": "AGENT_3",
+          "focus": [
+            "PHOTO_DUMP",
+            "3_PHOTO_ZOOM",
+            "COLLAGE_LOOP",
+            "POLAROID_FRAME",
+            "FILM_ROLL"
+          ],
+          "scope": "Find repeatable photo-sequence, zoom, collage, polaroid and film-roll mechanisms with recent traction and creator adoption.",
+          "discovery_rule": "Prioritize mechanisms that can be reused with materially different photos or contexts."
+        },
+        {
+          "agent_id": "AGENT_4",
+          "focus": [
+            "SELFIE_POSES",
+            "PHOTO_STORY",
+            "BEFORE_AFTER_SLIDER",
+            "BLUR_TO_CLEAR"
+          ],
+          "scope": "Find reusable selfie-pose structures, photo-story formats, before-after reveals and blur-to-clear visual mechanisms.",
+          "discovery_rule": "Source content can come from ignored categories when the underlying photo/story mechanism is transferable."
+        },
+        {
+          "agent_id": "AGENT_5",
+          "focus": [
+            "SEAMLESS_LOOP",
+            "AI_CONTENT"
+          ],
+          "scope": "Find seamless-loop, repeatable-loop, object-transformation and adjacent AI/editing mechanisms that can be recreated quickly.",
+          "discovery_rule": "Avoid duplicate candidates already captured by other agents when the mechanism is substantially identical."
+        },
+        {
+          "agent_id": "AGENT_6",
+          "focus": [
+            "OPEN_DISCOVERY"
+          ],
+          "scope": "Search any Instagram Reel category globally for emerging proven mechanisms that can transfer into TARGET_NICHES.",
+          "allowed_source_categories": "ANY",
+          "transfer_priority": "Mechanism-first. Dance, fashion, cooking, beauty, fitness, travel and other ignored source categories are valid discovery sources only when a reusable mechanism is clearly transferable.",
+          "avoid_category_drift": "Do not return generic category trends merely because they are popular. Return the underlying transferable mechanism."
+        }
+      ],
+
+      "shared_discovery_rules": {
+        "lookback": "24-48h",
+        "global_region": true,
+        "max_candidates_per_agent": 10,
+        "candidate_output_limit": "Up to 10 candidates per agent before consolidation.",
+        "search_priority": "Prioritize recent Reels with strong observable likes/comments, multiple independent replications, native adoption and continuing activity. This is a search priority, not a final ranking.",
+        "tutorial_handling": "Tutorials are valid discovery and total-replication signals but are never counted as native adoption.",
+        "metrics": [
+          "likes",
+          "comments",
+          "posting_age",
+          "views_when_available",
+          "native_creator_count",
+          "tutorial_creator_count",
+          "total_replication_signals",
+          "recent_adoption",
+          "mechanism",
+          "source_reels"
+        ],
+        "missing_metric_rule": "Use null for unavailable values. Never invent metrics.",
+        "final_status_rule": "Agents 1-6 must return candidates/evidence only. They must not declare ACTIONABLE, WATCH or EXCLUDED as final decisions."
+      }
+    },
+
+    "phase_2_validation_and_finalization": {
+      "agent_id": "AGENT_7",
+      "role": "VALIDATION_AND_FINALIZATION",
+      "purpose": "Consolidate the phase-1 candidate pool, revalidate evidence, deduplicate mechanisms, apply the full v4.9 gate system, run saturation checks and produce the final ACTIONABLE/WATCH output.",
+      "max_deep_validation_candidates": 20,
+      "candidate_selection_rule": "After mechanism-level deduplication, deep-validate up to 20 candidates selected by hard-proof completeness, current native activity, applicable likes/comments traction, replication evidence and distinct mechanism coverage. Do not select candidates merely because they have the highest likes or popularity. This internal pruning is not a public ranking.",
+
+      "responsibilities": [
+        "Merge candidates from Agents 1-6.",
+        "Deduplicate by underlying reusable mechanism rather than by individual Reel.",
+        "Recount unique independent creators and separate native creators from tutorial creators.",
+        "Remove reposts, compilations, direct duplicates and multiple posts from the same creator.",
+        "Recheck likes and comments against posting age.",
+        "Use views, shares/sends and saves only when genuinely observable.",
+        "Verify current native activity within the lookback period.",
+        "Extract the reusable mechanism independently of the original subject/category.",
+        "Build the target-niche adaptation and test originality.",
+        "Apply G1 through G7.",
+        "Run saturation_guard only after G1-G7 have passed.",
+        "Assign lifecycle and confidence.",
+        "Calculate scores only when their evidence requirements are valid.",
+        "Produce no public ranking.",
+        "Return a maximum of 5 ACTIONABLE and up to 5 WATCH trends."
+      ],
+
+      "targeted_verification_rule": "Agent 7 may perform additional targeted searches/checks on phase-1 candidates to verify likes, comments, creator counts, timestamps, native adoption, recent winners and source Reel evidence. It must not invent missing data.",
+
+      "final_authority_rule": "Only Agent 7 may assign the final ACTIONABLE, WATCH or EXCLUDED decision for a candidate cluster.",
+
+      "validation_order": [
+        "MERGE_PHASE_1_CANDIDATES",
+        "DEDUPE_BY_MECHANISM",
+        "REVALIDATE_PRIMARY_EVIDENCE",
+        "COUNT_NATIVE_AND_TOTAL_REPLICATION",
+        "CONFIRM_CURRENT_ACTIVITY",
+        "EXTRACT_MECHANISM",
+        "MATCH_TARGET_NICHE",
+        "CREATE_ORIGINAL_ADAPTATION",
+        "APPLY_G1_THROUGH_G7",
+        "RUN_SATURATION_GUARD",
+        "ASSIGN_LIFECYCLE_AND_CONFIDENCE",
+        "CALCULATE_VALID_SCORES",
+        "FINALIZE_ACTIONABLE_AND_WATCH"
+      ],
+
+      "hard_stop_rules": [
+        "Do not convert tutorial-only replication into native adoption.",
+        "Do not treat a single viral Reel as an actionable trend without native replication.",
+        "Do not use missing optional metrics as if they were observed.",
+        "Do not calculate precise hourly velocity from a broad posting-age range.",
+        "Do not let a high score override a triggered saturation guard.",
+        "Do not output a generic category trend without a transferable mechanism.",
+        "Do not fabricate Reel URLs or evidence."
+      ]
+    }
+  },
+
+  "core_strategy": "DISCOVER TREND -> PROVE AUDIENCE TRACTION -> CONFIRM TOTAL REPLICATION -> CONFIRM NATIVE ADOPTION -> CONFIRM CURRENT ACTIVITY -> EXTRACT MECHANISM -> MATCH TARGET NICHE -> CREATE ORIGINAL ADAPTATION -> APPLY G1-G7 -> CHECK SATURATION -> FINALIZE",
+
+  "discovery_rule": "Discover proven Reel trends globally from ANY category. IGNORE_AS_TARGET_NICHE must NEVER block discovery. A trend from dance, cooking, fashion, beauty or another ignored category may qualify if its underlying audio, edit, transition, template, visual structure, hook, meme format, AI effect, photo treatment or storytelling mechanism can be clearly reused.",
+
+  "target_niche_rule": "The source Reel does not need to belong to a TARGET_NICHE. The underlying reusable mechanism must have clear, practical and repeatable adaptation potential for at least one TARGET_NICHE.",
+
+  "reference_example_rule": "REFERENCE_EXAMPLES are pattern references only. Never simply return the supplied example or its exact Reel. Use examples only to understand the desired mechanism, then independently detect current trends with the same or adjacent mechanism.",
+
+  "trend_definition": {
+    "goal": "PROVEN TREND / JOIN NOW",
+    "lookback": "24-48h",
+
+    "must_show": [
+      "meaningful_recent_audience_traction",
+      "native_creator_adoption",
+      "current_or_continuing_adoption",
+      "reusable_mechanism",
+      "target_niche_adaptation_potential"
+    ],
+
+    "do_not_classify_as_actionable": [
+      "100-999 likes alone",
+      "low comment volume alone",
+      "fewer than 3 independent native creators",
+      "single viral Reel without replication",
+      "tutorial-only replication cluster",
+      "high audio-use count without recent Reel evidence",
+      "old viral trend with no current activity",
+      "strong engagement but no reusable mechanism",
+      "strong engagement but no meaningful native adoption",
+      "irrelevant trend with no transferable mechanism",
+      "trend whose main opportunity window has already closed",
+      "saturated trend unless a genuinely fresh and materially different mechanism or application exists"
+    ]
+  },
+
+  "hard_proof": {
+    "evidence_priority": [
+      "likes",
+      "comments",
+      "native_creator_adoption",
+      "total_replication_signals",
+      "recent_repeated_adoption",
+      "growth_or_velocity",
+      "views_when_available",
+      "shares_or_sends_when_visible",
+      "saves_when_visible"
+    ],
+
+    "audience_traction_model": {
+      "primary_platform_constraint": "Meta AI may not reliably expose Reel views, shares or saves.",
+      "primary_metrics": ["likes", "comments"],
+      "secondary_metrics": ["views_when_available", "shares_or_sends_when_visible", "saves_when_visible"],
+      "rule": "Likes and comments are the primary observable audience-traction signals. Missing views, shares or saves must NOT automatically disqualify a trend.",
+      "actionable_floor": {
+        "12_to_24h": {"likes": 1000, "comments": 100},
+        "24_to_48h": {"likes": 1500, "comments": 150}
+      },
+      "replication_requirement": {
+        "minimum_native_for_actionable": 3,
+        "preferred_native": 5,
+        "strong_native": 8,
+        "preferred_total_replication": 5
+      },
+      "momentum_requirement": "Recent repeated native adoption, increasing creator adoption, recent high-performing examples or observable velocity must indicate that the mechanism is still active.",
+      "quality_rule": "Likes and comments must be evaluated together with posting age, native creator adoption and current activity. High likes alone are insufficient.",
+      "views_rule": "If views are available, use them as an additional validation signal. If unavailable, continue using the likes/comments model and explicitly report views as unavailable."
+    },
+
+    "primary_audience_validation": {
+      "required": ["likes", "comments"],
+      "optional": ["views", "shares_or_sends", "saves"],
+      "rule": "Check likes and comments first. Use views, shares, sends and saves when genuinely observable, but do not require them when Meta AI does not expose them."
+    },
+
+    "age_adjusted_velocity": {
+      "age_hours_rule": "age_hours = max(exact_posting_age_hours, 1)",
+      "0_to_12h": {
+        "expected_likes": "1000 * (age_hours / 24)",
+        "expected_comments": "100 * (age_hours / 24)",
+        "strong_velocity": "At least 2x both age-adjusted expectations, or equivalent exceptionally strong multi-signal performance.",
+        "example_6h": {
+          "expected": {"likes": 250, "comments": 25},
+          "2x_strong": {"likes": 500, "comments": 50}
+        },
+        "actionable_rule": "High early velocity is not sufficient by itself. ACTIONABLE still requires at least 3 independent native creators, current adoption and clear reusable-mechanism potential.",
+        "rule": "High velocity can identify a promising trend but cannot override weak audience traction or weak native adoption."
+      },
+      "12_to_24h": {
+        "minimum_floor": {"likes": 1000, "comments": 100},
+        "rule": "Use the 1000-like and 100-comment floor as the primary hard-proof benchmark, then require at least 3 independent native creators and continuing activity."
+      },
+      "24_to_48h": {
+        "preferred_floor": {"likes": 1500, "comments": 150},
+        "rule": "Require the preferred likes/comments floor OR demonstrably strong recent velocity plus continuing native adoption. A Reel that crossed the minimum floor but is no longer receiving meaningful adoption should not be ACTIONABLE."
+      }
+    },
+
+    "numeric_guardrails": {
+      "12_to_24h_floor": {"likes": "1000+", "comments": "100+"},
+      "24_to_48h_preferred_floor": {"likes": "1500+", "comments": "150+"},
+      "optional_views_when_available": {"12_to_24h_reference": "5000+", "24_to_48h_reference": "7500+"},
+      "interpretation": "These are practical hard-proof guardrails for this radar, not universal definitions of virality. Always evaluate posting age, engagement quality, native adoption, total replication, current activity and mechanism transferability."
+    },
+
+    "engagement_quality": {
+      "like_rate": "likes / views when views are available",
+      "comment_rate": "comments / views when views are available",
+      "rule": "Use like rate and comment rate as quality signals when views are available. Do not calculate or invent rates when views are unavailable."
+    },
+
+    "velocity_metrics": {
+      "likes_per_hour": "likes / max(exact_posting_age_hours, 1)",
+      "comments_per_hour": "comments / max(exact_posting_age_hours, 1)",
+      "views_per_hour": "views / max(exact_posting_age_hours, 1) when views are available",
+      "recent_velocity": "Compare current performance or creator adoption against the preceding period when timestamps allow."
+    },
+
+    "timestamp_integrity": {
+      "posting_age": "Use exact posting age whenever available.",
+      "velocity_rule": "Calculate likes_per_hour, comments_per_hour and views_per_hour only when exact posting age is available.",
+      "broad_age_rule": "If posting age is reported as a range such as 24-48h, do not calculate a falsely precise per-hour rate. Use approximate_velocity or null.",
+      "data_honesty": "Never infer an exact posting time from a broad age range."
+    },
+
+    "replication_validation": {
+      "preferred_minimum_total": 5,
+      "minimum_native_for_actionable": 3,
+      "preferred_native_for_actionable": 5,
+      "strong_native_replication": "8+",
+      "counting_rule": "Count two separate tiers: (1) total replication signals including tutorials, (2) native adoption excluding tutorials. Do not count reposts, compilations, direct duplicates or multiple posts from the same creator in either tier.",
+      "tutorial_rule": {
+        "tutorials_are_discovery_signals": true,
+        "tutorials_are_replication_signals": true,
+        "tutorials_are_native_adoption": false,
+        "minimum_native_for_actionable": 3,
+        "rule": "Tutorials prove spread and demand but at least 3 independent non-tutorial native uses are required for ACTIONABLE.",
+        "tutorial_only_cluster": "WATCH",
+        "mixed_cluster_rule": "Tutorials plus 3 or more independent native uses can be ACTIONABLE if all other gates pass."
+      },
+      "native_use_definition": "An original Reel where the creator uses the mechanism for their own content, not explaining, teaching, reviewing or demonstrating how to reproduce another Reel.",
+      "independent_creator_definition": "Independent for total replication signals = the creator has their own implementation or their own tutorial demonstration, not a repost or direct duplication. Independent for native adoption = the creator has their own implementation for their own content, excluding tutorial-only Reels."
+    },
+
+    "distribution_validation": {
+      "signals": ["shares", "sends", "saves"],
+      "rule": "Use only when genuinely observable. If unavailable, report 'distribution evidence incomplete'. Never estimate or assume these metrics."
+    },
+
+    "momentum_validation": {
+      "preferred_signals": [
+        "recent_repeated_adoption",
+        "increasing_native_creator_count",
+        "recent_high_performing_examples",
+        "observable_growth_or_velocity",
+        "multiple_recent_native_examples"
+      ],
+      "rule": "The mechanism must still be active during the lookback period."
+    },
+
+    "data_completeness_gate": {
+      "required_for_actionable": [
+        "likes",
+        "comments",
+        "native_creator_adoption",
+        "current_activity",
+        "reusable_mechanism"
+      ],
+      "preferred_but_optional": ["views", "shares_or_sends", "saves"],
+      "rule": "Missing optional metrics do not automatically disqualify a trend. Missing primary evidence prevents ACTIONABLE classification.",
+      "incomplete_data_label": "DATA_INCOMPLETE",
+      "rule_for_scores": "Do not claim that optional evidence was checked when it was unavailable. Explicitly mark unavailable fields as null or incomplete."
+    },
+
+    "minimum_actionable_proof": "Strong recent likes/comments traction + at least 3 independent native creators + current activity + reusable mechanism + target-niche adaptation potential + at least 3 valid evidence categories.",
+    "weak_proof_action": "Do not classify as ACTIONABLE. At most classify as WATCH.",
+    "data_honesty": "Never invent views, likes, comments, shares, saves, creator counts, growth, posting time, retention or any other metric. Use null when unavailable."
+  },
+
+  "lifecycle": {
+    "PROVEN_EMERGING": "Strong recent audience traction + multiple independent native creators + continuing current adoption.",
+    "RISING": "Validated trend + accelerating or increasing native creator adoption.",
+    "MID": "Established current trend with meaningful activity but reduced novelty or increasing crowding.",
+    "SATURATED": "At least 2 saturation checks are confirmed within the defined 48h window. The opportunity is considered crowded or materially slowing."
+  },
+
+  "saturation_guard": {
+    "purpose": "Prevent the radar from recommending a trend after the practical opportunity window has already become crowded.",
+    "measurement_window": "48h",
+    "checks": {
+      "high_native_saturation": {
+        "condition": "native_creator_count >= 30 within the 48h measurement window",
+        "meaning": "30 or more independent native creators have already adopted the mechanism."
+      },
+      "tutorial_flood": {
+        "condition": "tutorial_creator_count > native_creator_count * 3",
+        "meaning": "Tutorial activity is more than 3x native adoption, indicating the mechanism is becoming commoditized or over-explained."
+      },
+      "no_recent_winner": {
+        "condition": "No new Reel meeting the applicable likes/comments audience-traction floor was observed during the most recent 24h.",
+        "meaning": "The trend may have stopped producing fresh breakout winners."
+      }
+    },
+    "saturation_rule": {
+      "trigger": "If any 2 of the 3 checks are true, lifecycle becomes SATURATED.",
+      "action": "SATURATED trends are EXCLUDED from ACTIONABLE output.",
+      "single_check_rule": "One saturation check alone does not automatically exclude the trend.",
+      "fresh_twist_exception": "A saturated trend may be reconsidered only when there is a genuinely fresh combination, execution, use case or target-niche application that is materially different from the established versions."
+    },
+    "data_honesty": "Only count observable native creators, tutorials and qualifying recent winners within the measurement window. Never estimate saturation counts."
+  },
+
+  "mechanism_extraction": {
+    "identify": [
+      "audio",
+      "hook",
+      "editing_pattern",
+      "template_structure",
+      "transition",
+      "visual_effect",
+      "AI_transformation",
+      "AI_photo_edit",
+      "AI_compositing",
+      "photo_sequence",
+      "photo_zoom",
+      "collage_structure",
+      "polaroid_structure",
+      "film_roll_structure",
+      "loop_structure",
+      "before_after_structure",
+      "blur_reveal",
+      "meme_structure",
+      "beat_sync",
+      "storytelling_pattern",
+      "reveal_pattern",
+      "multi_subject_visual_pattern",
+      "object_transformation"
+    ],
+    "rule": "The reusable mechanism is more important than the original subject, creator or category.",
+    "mechanism_test": [
+      "Can the same editing mechanism be reproduced with a different subject?",
+      "Can the same structure be used in at least one TARGET_NICHE?",
+      "Can the mechanism be executed with materially different visuals?",
+      "Does the mechanism provide enough originality room for adaptation?"
+    ]
+  },
+
+  "reusable_niche_engine": {
+    "goal": "Map each proven mechanism to one or more TARGET_NICHES.",
+    "examples": {
+      "viral_transition": ["TEMPLATE_EDITING", "AI_CONTENT", "VISUAL_TRANSITIONS"],
+      "AI_transformation": ["AI_CONTENT", "PHOTO_RESTYLE", "VISUAL_TRANSITIONS"],
+      "AI_photo_edit": ["AI_CONTENT", "PHOTO_RESTYLE", "PHOTO_STORY"],
+      "photo_sequence": ["PHOTO_DUMP", "PHOTO_STORY", "FILM_ROLL"],
+      "zoom_effect": ["3_PHOTO_ZOOM", "PHOTO_DUMP", "TEMPLATE_EDITING"],
+      "cinematic_reveal": ["PHOTO_RESTYLE", "BEFORE_AFTER_SLIDER"],
+      "beat_sync": ["AUDIO_SYNC", "BEAT_SYNC", "TEMPLATE_EDITING"],
+      "viral_meme_audio": ["MEME_AUDIO", "AI_CONTENT"],
+      "blur_reveal": ["BLUR_TO_CLEAR", "BEFORE_AFTER_SLIDER"],
+      "repeatable_visual_loop": ["COLLAGE_LOOP", "SEAMLESS_LOOP"],
+      "multi_subject_visual_edit": ["AI_CONTENT", "PHOTO_STORY", "PHOTO_RESTYLE", "VISUAL_TRANSITIONS"]
+    }
+  },
+
+  "adaptation_engine": {
+    "required": [
+      "new_subject",
+      "new_context",
+      "new_visual_execution",
+      "new_hook_or_text",
+      "target_niche_value"
+    ],
+    "rule": "Create a materially different Reel concept. Do not simply reproduce the source Reel.",
+    "originality_requirement": "The adaptation must introduce meaningful differences in subject, context, execution, hook/text, visual treatment or intended audience value.",
+    "mechanism_first_rule": "Preserve the reusable mechanism when useful, but change the creative implementation.",
+    "example": {
+      "source_pattern": "car flying AI edit",
+      "mechanism": "impossible-object AI transformation",
+      "target_niche": "AI_CONTENT",
+      "original_adaptation": "ordinary laptop transforms into a futuristic AI workstation"
+    },
+    "photo_edit_rule": "A source trend involving choreography, fashion, people or another ignored category may be adapted into an original photo edit, AI edit or visual transformation when the reusable mechanism is the important component.",
+    "ai_edit_rule": "AI transformation, AI photo editing, AI compositing, AI object transformation and similar visual-edit mechanisms remain valid even when the source subject belongs to IGNORE_AS_TARGET_NICHE."
+  },
+
+  "adaptation_boundary": {
+    "source_category_rule": "The source category may be anything, including fashion, dance, cooking, beauty or other ignored categories.",
+    "mechanism_first_rule": "Evaluate the reusable mechanism separately from the source subject or category.",
+    "target_niche_rule": "The final adaptation should normally be expressed through a TARGET_NICHE.",
+    "ai_edit_exception": "An IGNORE_AS_TARGET_NICHE subject may still be used in the final adaptation when it is necessary to demonstrate or exploit a reusable AI/editing mechanism.",
+    "important_rule": "Do not reject a trend merely because its source subject belongs to IGNORE_AS_TARGET_NICHE. Judge the transferability of the underlying mechanism.",
+    "avoid_category_drift": "Do not turn the radar into a general fashion, dance, cooking, fitness or lifestyle trend finder merely because those categories produce useful mechanisms."
+  },
+
+  "scoring": {
+    "trend_strength_score": {
+      "range": "0-100",
+      "weights": {
+        "audience_traction": "35%",
+        "replication": "25%",
+        "momentum": "20%",
+        "recency": "10%",
+        "distribution_evidence": "10%"
+      },
+      "minimum_valid_components": 3,
+      "rule": "Calculate a score only when at least 3 meaningful evidence components are valid. If optional metrics are unavailable, do not pretend they were validated.",
+      "audience_traction_guidance": {
+        "strong": "Likes/comments meet or exceed the applicable age-based floor and show strong engagement quality.",
+        "moderate": "Meaningful likes/comments but below the preferred floor.",
+        "weak": "Low likes/comments or insufficient evidence."
+      },
+      "replication_guidance": {
+        "strong": "8+ independent native creators.",
+        "preferred": "5+ independent native creators or 5+ total replication signals with at least 3 native creators.",
+        "valid": "3-4 independent native creators with supporting tutorial/total replication signals.",
+        "weak": "0-2 independent native creators."
+      },
+      "momentum_guidance": {
+        "strong": "Recent repeated native adoption plus increasing creator participation or strong recent velocity.",
+        "valid": "Multiple recent native examples showing continuing adoption.",
+        "weak": "Old activity, tutorial-only activity or unclear current native adoption."
+      },
+      "saturation_rule": "A high trend_strength_score does not override SATURATED lifecycle. Saturation is a hard opportunity-window guard."
+    },
+    "recreation_opportunity_score": {
+      "range": "0-100",
+      "consider": [
+        "faceless_feasibility",
+        "editing_difficulty",
+        "template_availability",
+        "mobile_app_feasibility",
+        "originality_room",
+        "production_time",
+        "mechanism_reusability"
+      ],
+      "guidance": "Higher scores indicate that the mechanism is practical to reproduce quickly with original content."
+    },
+    "niche_relevance_score": {
+      "range": "0-100",
+      "meaning": "How naturally the proven mechanism can be adapted to TARGET_NICHES.",
+      "rule": "Do not use niche relevance as a substitute for trend proof."
+    },
+    "worked_scoring_examples": {
+      "example_A_strong_native": {
+        "evidence": {
+          "likes": 54000,
+          "comments": 20000,
+          "total_replication_signals": 15,
+          "native_creators": 10,
+          "tutorial_creators": 5,
+          "current_adoption": true,
+          "recency": "24-48h",
+          "distribution": "unavailable"
+        },
+        "interpretation": "Very strong audience traction, strong native adoption and current activity. Tutorials add supporting spread/demand evidence but are not required for native qualification.",
+        "expected_result": "High trend strength and ACTIONABLE if all gates pass and saturation does not trigger."
+      },
+      "example_B_tutorial_only": {
+        "evidence": {
+          "likes": 54000,
+          "comments": 20000,
+          "total_replication_signals": 8,
+          "native_creators": 0,
+          "tutorial_creators": 8,
+          "current_adoption": true
+        },
+        "interpretation": "Strong tutorial buzz but no native adoption.",
+        "expected_result": "WATCH, not ACTIONABLE."
+      },
+      "example_C_mixed_but_actionable": {
+        "evidence": {
+          "likes": 27000,
+          "comments": 1600,
+          "total_replication_signals": 7,
+          "native_creators": 4,
+          "tutorial_creators": 3,
+          "current_adoption": true
+        },
+        "interpretation": "Strong audience traction, 4 native creators and 3 tutorial signals. Native minimum is satisfied.",
+        "expected_result": "ACTIONABLE if all gates pass and saturation does not trigger."
+      },
+      "example_D_promising_but_watch": {
+        "evidence": {
+          "likes": 55000,
+          "comments": 72,
+          "total_replication_signals": 4,
+          "native_creators": 1,
+          "tutorial_creators": 3,
+          "current_adoption": true
+        },
+        "interpretation": "High likes but insufficient comments and native adoption.",
+        "expected_result": "WATCH, not ACTIONABLE."
+      },
+      "example_E_missing_views": {
+        "evidence": {
+          "likes": 31000,
+          "comments": 770,
+          "total_replication_signals": 12,
+          "native_creators": 7,
+          "tutorial_creators": 5,
+          "current_adoption": true,
+          "views": null
+        },
+        "interpretation": "Views are unavailable, but primary likes/comments, native adoption and current activity are strong.",
+        "expected_result": "Can be ACTIONABLE if all other gates pass. Mark views as unavailable and distribution evidence as incomplete."
+      },
+      "example_F_saturated": {
+        "evidence": {
+          "native_creators_48h": 34,
+          "tutorial_creators_48h": 120,
+          "new_winner_in_last_24h": false
+        },
+        "saturation_checks": {
+          "high_native_saturation": true,
+          "tutorial_flood": true,
+          "no_recent_winner": true
+        },
+        "interpretation": "All three saturation checks are true.",
+        "expected_result": "SATURATED and EXCLUDED."
+      }
+    }
+  },
+
+  "actionability_gates": {
+    "G1_STRONG_AUDIENCE_TRACTION": "Likes/comments meet the applicable age-based threshold or demonstrate exceptionally strong age-adjusted velocity.",
+    "G2_INDEPENDENT_REPLICATION": "At least 3 independent native creators use the same underlying mechanism. Total replication signals should preferably reach 5 or more when tutorials are included.",
+    "G3_CURRENT_ACTIVITY": "The mechanism is still receiving recent native adoption within the lookback period.",
+    "G4_REUSABLE_MECHANISM": "A clearly identifiable audio, edit, transition, template, AI transformation, visual structure or storytelling mechanism exists.",
+    "G5_TARGET_NICHE_FIT": "The mechanism has practical adaptation potential for at least one TARGET_NICHE.",
+    "G6_ORIGINAL_ADAPTATION": "A materially different adaptation can be created without simply reproducing the source.",
+    "G7_ACCEPTABLE_RISK": "No unacceptable copyright, trademark, impersonation, NSFW, dangerous, misleading or platform-policy risk.",
+    "SATURATION_OVERRIDE": "After G1-G7 pass, run saturation_guard. If any 2 of the 3 saturation checks are true, lifecycle becomes SATURATED and the trend is EXCLUDED from ACTIONABLE output.",
+    "ACTIONABLE": "G1-G7 pass, primary hard-proof requirements are satisfied, confidence is not LOW and saturation does not trigger.",
+    "WATCH": "The mechanism is promising but one major proof requirement remains incomplete, such as fewer than 3 native creators, insufficient engagement or uncertain current activity.",
+    "EXCLUDED": "Weak evidence, irrelevant mechanism, saturated opportunity, unusable format, unacceptable risk or no practical adaptation path."
+  },
+
+  "originality_and_risk": {
+    "originality_check": [
+      "different_subject",
+      "different_context",
+      "different_execution",
+      "different_hook_or_text",
+      "meaningful_added_value"
+    ],
+    "risk_flags": [
+      "copyright_risk",
+      "trademark_risk",
+      "impersonation",
+      "NSFW",
+      "dangerous_content",
+      "misleading_content",
+      "platform_policy_risk"
+    ],
+    "rule": "Use source Reels as trend evidence only. Do not recommend direct copying of source footage, exact scripts, exact choreography, exact visual sequence or creator identity."
+  },
+
+  "confidence": {
+    "HIGH": "Primary likes/comments evidence is strong, at least 8 independent native creators are confirmed, current native activity is clear and the reusable mechanism is unambiguous.",
+    "MEDIUM": "Primary evidence is strong enough for ACTIONABLE, at least 3 native creators are confirmed, and one optional evidence category is unavailable or native replication is between 3-7 creators.",
+    "LOW": "Important primary evidence is missing, fewer than 3 native creators are confirmed or current native activity is uncertain. LOW confidence should not be ACTIONABLE."
+  },
+
+  "output": {
+    "max_actionable_trends": 5,
+    "max_watch_trends": 5,
+    "do_not_rank": true,
+    "categories": [
+      "ACTIONABLE",
+      "WATCH"
+    ],
+    "status_rule": "Use ACTIONABLE only when all actionability gates pass and saturation does not trigger. Use WATCH when the mechanism is promising but proof is incomplete.",
+    "fields": [
+      "status",
+      "trend_name",
+      "trend_type",
+      "lifecycle",
+      "source_category",
+      "mechanism",
+      "posting_age",
+      "views",
+      "likes",
+      "comments",
+      "like_rate",
+      "comment_rate",
+      "likes_per_hour",
+      "views_per_hour",
+      "comments_per_hour",
+      "velocity_precision",
+      "shares_or_sends",
+      "saves",
+      "total_replication_signals",
+      "native_creator_count",
+      "tutorial_creator_count",
+      "recent_adoption",
+      "saturation_guard",
+      "trend_strength_score",
+      "target_niche",
+      "niche_relevance_score",
+      "recreation_opportunity_score",
+      "why_it_is_working",
+      "original_adaptation",
+      "recommended_editing_approach",
+      "faceless_feasibility",
+      "opportunity_window",
+      "distribution_evidence_status",
+      "data_completeness",
+      "risk_flags",
+      "confidence",
+      "source_reels"
+    ],
+    "saturation_output_rule": "When reporting a trend, expose the three saturation checks when observable: native_creator_count_48h, tutorial_creator_count_48h and new_winner_in_last_24h. Do not estimate unavailable values.",
+    "watch_rule": "WATCH means promising but not yet proven. Never present WATCH as an established trend.",
+    "velocity_rule": "If exact posting age is unavailable, use null or clearly label velocity as approximate. Never present a precise hourly rate derived from a broad age range.",
+    "missing_metric_rule": "Use null for unavailable metrics. Never infer or fabricate missing metrics.",
+    "tutorial_output_rule": "When tutorials are found, separately report total_replication_signals, native_creator_count and tutorial_creator_count so the evidence can be audited.",
+    "no_ranking_rule": "Do not rank trends from #1 to #N. Each ACTIONABLE trend should be evaluated independently against the proof and saturation gates.",
+    "finalization_rule": "Only Agent 7 produces the final ACTIONABLE/WATCH output after full validation and saturation checks."
+  },
+
+  "source_rule": {
+    "requirement": "Provide source Reel URLs when available.",
+    "evidence_rule": "Source Reels are evidence only.",
+    "adaptation_rule": "Proposed adaptations must be original.",
+    "url_rule": "Do not fabricate Reel URLs. If unavailable, return null."
+  },
+
+  "final_decision": "Find current Instagram Reel trends globally from the last 24-48h. Use six parallel discovery agents to search specialized reusable-niche groups plus one open-discovery agent. Do not require manual agent selection or a second JSON. After discovery, Agent 7 alone consolidates and deduplicates candidates by underlying mechanism, revalidates primary evidence, separates tutorial replication from native adoption, confirms current native activity, extracts the reusable mechanism, maps it to TARGET_NICHES, creates a materially original adaptation, applies G1-G7, then runs the 48h saturation guard. If any 2 of the 3 saturation checks are true, classify the lifecycle as SATURATED and exclude the trend from ACTIONABLE output. Likes and comments are the primary audience-traction signals; missing views, shares or saves do not automatically disqualify a trend. Require at least 3 independent native creators for ACTIONABLE, preferably 5+ native creators and 5+ total replication signals. IGNORE_AS_TARGET_NICHE must never block discovery of transferable mechanisms. AI edits, photo edits, visual transformations and reusable editing mechanisms remain valid even when the source subject belongs to an ignored category. Tutorials are useful discovery and demand signals but must never substitute for native adoption. Prefer strongly proven trends that can still be joined now over tiny early signals. Do not rank trends."
+}
